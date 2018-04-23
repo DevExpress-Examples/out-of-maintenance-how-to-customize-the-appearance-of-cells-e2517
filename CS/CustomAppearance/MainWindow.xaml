@@ -1,0 +1,30 @@
+﻿<Window xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="540" Width="895"
+        x:Class="CustomAppearance.MainWindow"
+        Loaded="Window_Loaded">
+    <Grid>
+        <dxpg:PivotGridControl CustomCellAppearance="OnCustomAppearance" GridLayout="OnGridLayout"
+                               VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Name="pivotGridControl1">
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea"
+                                     Caption="Product Category" />
+                <dxpg:PivotGridField Name="fieldProductName" FieldName="ProductName" Area="RowArea"
+                                     Caption="Product Name" />
+                <dxpg:PivotGridField Name="fieldCustomer" FieldName="Sales Person" Area="FilterArea" 
+                                     Caption="Customer" />
+                <dxpg:PivotGridField Name="fieldYear" FieldName="OrderDate" Area="ColumnArea"
+                                     Caption="Year" GroupInterval="DateYear" />
+                <dxpg:PivotGridField Name="fieldQuarter" FieldName="OrderDate" Area="ColumnArea"
+                                     Caption="Quarter" ValueFormat="Quarter 0" 
+                                     GroupInterval="DateQuarter" />
+                <dxpg:PivotGridField Name="fieldMonth" FieldName="OrderDate" Area="ColumnArea"
+                                     Caption="Month" GroupInterval="DateMonth" />
+                <dxpg:PivotGridField Name="fieldExtendedPrice" FieldName="Extended Price" Area="DataArea"
+                                     CellFormat="c0" />
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+    </Grid>
+</Window>
