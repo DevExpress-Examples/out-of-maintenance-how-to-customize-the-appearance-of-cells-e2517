@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Windows
 Imports System.Windows.Media
 Imports CustomAppearance.DataSet1TableAdapters
@@ -8,27 +7,29 @@ Imports DevExpress.Xpf.PivotGrid
 Namespace CustomAppearance
 	Partial Public Class MainWindow
 		Inherits Window
-		Private salesPersonDataTable As New DataSet1.SalesPersonDataTable()
+
+'INSTANT VB NOTE: The variable salesPersonDataTable was renamed since it may cause conflicts with calls to static members of the user-defined type with this name:
+		Private salesPersonDataTable_Conflict As New DataSet1.SalesPersonDataTable()
 		Private salesPersonDataAdapter As New SalesPersonTableAdapter()
 		Private minValue, maxValue, minTotalValue, maxTotalValue As Decimal
 		Private maxMinCalculated As Boolean
 		Public Sub New()
 			InitializeComponent()
-			pivotGridControl1.DataSource = salesPersonDataTable
+			pivotGridControl1.DataSource = salesPersonDataTable_Conflict
 		End Sub
 		Private Sub Window_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs)
-			salesPersonDataAdapter.Fill(salesPersonDataTable)
+			salesPersonDataAdapter.Fill(salesPersonDataTable_Conflict)
 			pivotGridControl1.CollapseAll()
 		End Sub
 
 		' Handles the CustomCellAppearance event. Sets the current cell's foreground color
 		' to a color generated in a custom manner.
 		Private Sub OnCustomAppearance(ByVal sender As Object, ByVal e As PivotCustomCellAppearanceEventArgs)
-			If Not(TypeOf e.Value Is Decimal) Then
+			If Not (TypeOf e.Value Is Decimal) Then
 				Return
 			End If
 			Dim value As Decimal = CDec(e.Value)
-			Dim isGrandTotal As Boolean = Me.IsGrandTotal(e)
+			Dim isGrandTotal As Boolean = IsGrandTotal(e)
 			If IsValueNotFit(value, isGrandTotal) Then
 				ResetMaxMin()
 			End If
@@ -36,7 +37,7 @@ Namespace CustomAppearance
 			If IsValueNotFit(value, isGrandTotal) Then
 				Return
 			End If
-			e.Foreground = New SolidColorBrush(GetColorByValue(value, Me.IsGrandTotal(e)))
+			e.Foreground = New SolidColorBrush(GetColorByValue(value, IsGrandTotal(e)))
 		End Sub
 
 		Private Function IsValueNotFit(ByVal value As Decimal, ByVal isGrandToatl As Boolean) As Boolean
@@ -85,10 +86,10 @@ Namespace CustomAppearance
 			For i As Integer = 0 To pivotGridControl1.RowCount - 1
 				For j As Integer = 0 To pivotGridControl1.ColumnCount - 1
 					Dim val As Object = pivotGridControl1.GetCellValue(j, i)
-					If Not(TypeOf val Is Decimal) Then
+					If Not (TypeOf val Is Decimal) Then
 						Continue For
 					End If
-					Dim value As Decimal = CDec(val)
+					Dim value As Decimal = DirectCast(val, Decimal)
 					Dim isGrandTotal As Boolean = pivotGridControl1.GetFieldValueType(True, j) = FieldValueType.GrandTotal OrElse pivotGridControl1.GetFieldValueType(False, i) = FieldValueType.GrandTotal
 					If isGrandTotal Then
 						If value > maxTotalValue Then
