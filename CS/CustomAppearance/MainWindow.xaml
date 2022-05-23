@@ -6,24 +6,45 @@
         Loaded="Window_Loaded">
     <Grid>
         <dxpg:PivotGridControl CustomCellAppearance="OnCustomAppearance" GridLayout="OnGridLayout"
-                               VerticalAlignment="Top" HorizontalAlignment="Left"
+                               DataProcessingEngine="Optimized"
                                Name="pivotGridControl1">
             <dxpg:PivotGridControl.Fields>
-                <dxpg:PivotGridField Name="fieldCategoryName" FieldName="CategoryName" Area="RowArea"
-                                     Caption="Product Category" />
-                <dxpg:PivotGridField Name="fieldProductName" FieldName="ProductName" Area="RowArea"
-                                     Caption="Product Name" />
-                <dxpg:PivotGridField Name="fieldCustomer" FieldName="Sales Person" Area="FilterArea" 
-                                     Caption="Customer" />
-                <dxpg:PivotGridField Name="fieldYear" FieldName="OrderDate" Area="ColumnArea"
-                                     Caption="Year" GroupInterval="DateYear" />
-                <dxpg:PivotGridField Name="fieldQuarter" FieldName="OrderDate" Area="ColumnArea"
-                                     Caption="Quarter" ValueFormat="Quarter 0" 
-                                     GroupInterval="DateQuarter" />
-                <dxpg:PivotGridField Name="fieldMonth" FieldName="OrderDate" Area="ColumnArea"
-                                     Caption="Month" GroupInterval="DateMonth" />
-                <dxpg:PivotGridField Name="fieldExtendedPrice" FieldName="Extended Price" Area="DataArea"
-                                     CellFormat="c0" />
+                <dxpg:PivotGridField Name="fieldCategoryName" Area="RowArea" Caption="Product Category" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="CategoryName"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldProductName" Area="RowArea" Caption="Product Name" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="ProductName"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldCustomer" Area="FilterArea" Caption="Customer" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="Sales Person"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldYear"  Area="ColumnArea" Caption="Year"  >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="OrderDate" GroupInterval="DateYear"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldQuarter"  Area="ColumnArea"
+                                     Caption="Quarter" ValueFormat="Quarter 0" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="OrderDate" GroupInterval="DateQuarter"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldMonth" Area="ColumnArea" Caption="Month" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="OrderDate" GroupInterval="DateMonth"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="fieldExtendedPrice"  Area="DataArea" CellFormat="c0" >
+                    <dxpg:PivotGridField.DataBinding>
+                        <dxpg:DataSourceColumnBinding ColumnName="Extended Price"/>
+                    </dxpg:PivotGridField.DataBinding>
+                </dxpg:PivotGridField>
             </dxpg:PivotGridControl.Fields>
         </dxpg:PivotGridControl>
     </Grid>
